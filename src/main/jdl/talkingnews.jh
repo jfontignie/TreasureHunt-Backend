@@ -1,0 +1,17 @@
+entity NewsPaper {
+	name String required,
+	pattern String required
+}
+
+entity Feed {
+    category String required,
+	feedUrl String required
+}
+
+relationship ManyToOne {
+    Feed{NewsPaper(name) required} to NewsPaper{Feed(category)}
+}
+
+service NewsPaper with serviceImpl
+
+paginate NewsPaper with infinite-scroll

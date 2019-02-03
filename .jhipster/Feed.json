@@ -1,0 +1,38 @@
+{
+    "name": "Feed",
+    "fields": [
+        {
+            "fieldName": "category",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "feedUrl",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": "required",
+            "relationshipName": "newsPaper",
+            "otherEntityName": "newsPaper",
+            "otherEntityField": "name",
+            "otherEntityRelationshipName": "feed(category)"
+        }
+    ],
+    "changelogDate": "20190203200112",
+    "entityTableName": "feed",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
