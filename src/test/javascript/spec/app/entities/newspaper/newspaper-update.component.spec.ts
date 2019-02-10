@@ -4,35 +4,35 @@ import { HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 import { TalkingNewsBackendTestModule } from '../../../test.module';
-import { NewsPaperUpdateComponent } from 'app/entities/news-paper/news-paper-update.component';
-import { NewsPaperService } from 'app/entities/news-paper/news-paper.service';
-import { NewsPaper } from 'app/shared/model/news-paper.model';
+import { NewspaperUpdateComponent } from 'app/entities/newspaper/newspaper-update.component';
+import { NewspaperService } from 'app/entities/newspaper/newspaper.service';
+import { Newspaper } from 'app/shared/model/newspaper.model';
 
 describe('Component Tests', () => {
-    describe('NewsPaper Management Update Component', () => {
-        let comp: NewsPaperUpdateComponent;
-        let fixture: ComponentFixture<NewsPaperUpdateComponent>;
-        let service: NewsPaperService;
+    describe('Newspaper Management Update Component', () => {
+        let comp: NewspaperUpdateComponent;
+        let fixture: ComponentFixture<NewspaperUpdateComponent>;
+        let service: NewspaperService;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [TalkingNewsBackendTestModule],
-                declarations: [NewsPaperUpdateComponent]
+                declarations: [NewspaperUpdateComponent]
             })
-                .overrideTemplate(NewsPaperUpdateComponent, '')
+                .overrideTemplate(NewspaperUpdateComponent, '')
                 .compileComponents();
 
-            fixture = TestBed.createComponent(NewsPaperUpdateComponent);
+            fixture = TestBed.createComponent(NewspaperUpdateComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(NewsPaperService);
+            service = fixture.debugElement.injector.get(NewspaperService);
         });
 
         describe('save', () => {
             it('Should call update service on save for existing entity', fakeAsync(() => {
                 // GIVEN
-                const entity = new NewsPaper(123);
+                const entity = new Newspaper(123);
                 spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
-                comp.newsPaper = entity;
+                comp.newspaper = entity;
                 // WHEN
                 comp.save();
                 tick(); // simulate async
@@ -44,9 +44,9 @@ describe('Component Tests', () => {
 
             it('Should call create service on save for new entity', fakeAsync(() => {
                 // GIVEN
-                const entity = new NewsPaper();
+                const entity = new Newspaper();
                 spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
-                comp.newsPaper = entity;
+                comp.newspaper = entity;
                 // WHEN
                 comp.save();
                 tick(); // simulate async

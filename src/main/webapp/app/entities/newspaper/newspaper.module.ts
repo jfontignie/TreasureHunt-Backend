@@ -5,31 +5,31 @@ import { JhiLanguageHelper } from 'app/core';
 
 import { TalkingNewsBackendSharedModule } from 'app/shared';
 import {
-    NewsPaperComponent,
-    NewsPaperDetailComponent,
-    NewsPaperUpdateComponent,
-    NewsPaperDeletePopupComponent,
-    NewsPaperDeleteDialogComponent,
-    newsPaperRoute,
-    newsPaperPopupRoute
+    NewspaperComponent,
+    NewspaperDetailComponent,
+    NewspaperUpdateComponent,
+    NewspaperDeletePopupComponent,
+    NewspaperDeleteDialogComponent,
+    newspaperRoute,
+    newspaperPopupRoute
 } from './';
 
-const ENTITY_STATES = [...newsPaperRoute, ...newsPaperPopupRoute];
+const ENTITY_STATES = [...newspaperRoute, ...newspaperPopupRoute];
 
 @NgModule({
     imports: [TalkingNewsBackendSharedModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
-        NewsPaperComponent,
-        NewsPaperDetailComponent,
-        NewsPaperUpdateComponent,
-        NewsPaperDeleteDialogComponent,
-        NewsPaperDeletePopupComponent
+        NewspaperComponent,
+        NewspaperDetailComponent,
+        NewspaperUpdateComponent,
+        NewspaperDeleteDialogComponent,
+        NewspaperDeletePopupComponent
     ],
-    entryComponents: [NewsPaperComponent, NewsPaperUpdateComponent, NewsPaperDeleteDialogComponent, NewsPaperDeletePopupComponent],
+    entryComponents: [NewspaperComponent, NewspaperUpdateComponent, NewspaperDeleteDialogComponent, NewspaperDeletePopupComponent],
     providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class TalkingNewsBackendNewsPaperModule {
+export class TalkingNewsBackendNewspaperModule {
     constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
         this.languageHelper.language.subscribe((languageKey: string) => {
             if (languageKey !== undefined) {

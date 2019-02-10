@@ -17,7 +17,7 @@
             },
             "category": "Category",
             "feedUrl": "Feed Url",
-            "newsPaper": "News Paper"
+            "newspaper": "Newspaper"
         }
     }
 }

@@ -3,7 +3,7 @@ package com.talkingnews.backend.web.rest;
 import com.talkingnews.backend.TalkingNewsBackendApp;
 
 import com.talkingnews.backend.domain.Feed;
-import com.talkingnews.backend.domain.NewsPaper;
+import com.talkingnews.backend.domain.Newspaper;
 import com.talkingnews.backend.repository.FeedRepository;
 import com.talkingnews.backend.web.rest.errors.ExceptionTranslator;
 
@@ -92,10 +92,10 @@ public class FeedResourceIntTest {
             .category(DEFAULT_CATEGORY)
             .feedUrl(DEFAULT_FEED_URL);
         // Add required entity
-        NewsPaper newsPaper = NewsPaperResourceIntTest.createEntity(em);
-        em.persist(newsPaper);
+        Newspaper newspaper = NewspaperResourceIntTest.createEntity(em);
+        em.persist(newspaper);
         em.flush();
-        feed.setNewsPaper(newsPaper);
+        feed.setNewspaper(newspaper);
         return feed;
     }
 

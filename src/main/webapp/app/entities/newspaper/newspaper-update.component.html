@@ -1,18 +1,18 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-news-paper-heading" jhiTranslate="talkingNewsBackendApp.newsPaper.home.createOrEditLabel">Create or edit a News Paper</h2>
+            <h2 id="jhi-newspaper-heading" jhiTranslate="talkingNewsBackendApp.newspaper.home.createOrEditLabel">Create or edit a Newspaper</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!newsPaper.id">
+                <div class="form-group" [hidden]="!newspaper.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="newsPaper.id" readonly />
+                        [(ngModel)]="newspaper.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="talkingNewsBackendApp.newsPaper.name" for="field_name">Name</label>
+                    <label class="form-control-label" jhiTranslate="talkingNewsBackendApp.newspaper.name" for="field_name">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
-                        [(ngModel)]="newsPaper.name" required/>
+                        [(ngModel)]="newspaper.name" required/>
                     <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
@@ -21,9 +21,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="talkingNewsBackendApp.newsPaper.pattern" for="field_pattern">Pattern</label>
+                    <label class="form-control-label" jhiTranslate="talkingNewsBackendApp.newspaper.pattern" for="field_pattern">Pattern</label>
                     <input type="text" class="form-control" name="pattern" id="field_pattern"
-                        [(ngModel)]="newsPaper.pattern" required/>
+                        [(ngModel)]="newspaper.pattern" required/>
                     <div [hidden]="!(editForm.controls.pattern?.dirty && editForm.controls.pattern?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.pattern?.errors?.required" jhiTranslate="entity.validation.required">

@@ -1,6 +1,6 @@
 package com.talkingnews.backend.service;
 
-import com.talkingnews.backend.domain.NewsPaper;
+import com.talkingnews.backend.domain.Newspaper;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,37 +8,37 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 /**
- * Service Interface for managing NewsPaper.
+ * Service Interface for managing Newspaper.
  */
-public interface NewsPaperService {
+public interface NewspaperService {
 
     /**
-     * Save a newsPaper.
+     * Save a newspaper.
      *
-     * @param newsPaper the entity to save
+     * @param newspaper the entity to save
      * @return the persisted entity
      */
-    NewsPaper save(NewsPaper newsPaper);
+    Newspaper save(Newspaper newspaper);
 
     /**
-     * Get all the newsPapers.
+     * Get all the newspapers.
      *
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<NewsPaper> findAll(Pageable pageable);
+    Page<Newspaper> findAll(Pageable pageable);
 
 
     /**
-     * Get the "id" newsPaper.
+     * Get the "id" newspaper.
      *
      * @param id the id of the entity
      * @return the entity
      */
-    Optional<NewsPaper> findOne(Long id);
+    Optional<Newspaper> findOne(Long id);
 
     /**
-     * Delete the "id" newsPaper.
+     * Delete the "id" newspaper.
      *
      * @param id the id of the entity
      */

@@ -13,10 +13,10 @@
                 <dd>
                     <span>{{feed.feedUrl}}</span>
                 </dd>
-                <dt><span jhiTranslate="talkingNewsBackendApp.feed.newsPaper">News Paper</span></dt>
+                <dt><span jhiTranslate="talkingNewsBackendApp.feed.newspaper">Newspaper</span></dt>
                 <dd>
-                    <div *ngIf="feed.newsPaper">
-                        <a [routerLink]="['/news-paper', feed.newsPaper?.id, 'view']">{{feed.newsPaper?.name}}</a>
+                    <div *ngIf="feed.newspaper">
+                        <a [routerLink]="['/newspaper', feed.newspaper?.id, 'view']">{{feed.newspaper?.name}}</a>
                     </div>
                 </dd>
             </dl>

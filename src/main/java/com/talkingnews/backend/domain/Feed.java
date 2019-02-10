@@ -37,7 +37,7 @@ public class Feed implements Serializable {
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("feed(category)S")
-    private NewsPaper newsPaper;
+    private Newspaper newspaper;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -74,17 +74,17 @@ public class Feed implements Serializable {
         this.feedUrl = feedUrl;
     }
 
-    public NewsPaper getNewsPaper() {
-        return newsPaper;
+    public Newspaper getNewspaper() {
+        return newspaper;
     }
 
-    public Feed newsPaper(NewsPaper newsPaper) {
-        this.newsPaper = newsPaper;
+    public Feed newspaper(Newspaper newspaper) {
+        this.newspaper = newspaper;
         return this;
     }
 
-    public void setNewsPaper(NewsPaper newsPaper) {
-        this.newsPaper = newsPaper;
+    public void setNewspaper(Newspaper newspaper) {
+        this.newspaper = newspaper;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

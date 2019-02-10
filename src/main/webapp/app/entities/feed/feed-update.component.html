@@ -33,15 +33,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="talkingNewsBackendApp.feed.newsPaper" for="field_newsPaper">News Paper</label>
-                    <select class="form-control" id="field_newsPaper" name="newsPaper" [(ngModel)]="feed.newsPaper"  required>
-                        <option *ngIf="!editForm.value.newsPaper" [ngValue]="null" selected></option>
-                        <option [ngValue]="newsPaperOption.id === feed.newsPaper?.id ? feed.newsPaper : newsPaperOption" *ngFor="let newsPaperOption of newspapers; trackBy: trackNewsPaperById">{{newsPaperOption.name}}</option>
+                    <label class="form-control-label" jhiTranslate="talkingNewsBackendApp.feed.newspaper" for="field_newspaper">Newspaper</label>
+                    <select class="form-control" id="field_newspaper" name="newspaper" [(ngModel)]="feed.newspaper"  required>
+                        <option *ngIf="!editForm.value.newspaper" [ngValue]="null" selected></option>
+                        <option [ngValue]="newspaperOption.id === feed.newspaper?.id ? feed.newspaper : newspaperOption" *ngFor="let newspaperOption of newspapers; trackBy: trackNewspaperById">{{newspaperOption.name}}</option>
                     </select>
                 </div>
-                <div [hidden]="!(editForm.controls.newsPaper?.dirty && editForm.controls.newsPaper?.invalid)">
+                <div [hidden]="!(editForm.controls.newspaper?.dirty && editForm.controls.newspaper?.invalid)">
                     <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.newsPaper?.errors?.required" jhiTranslate="entity.validation.required">
+                        [hidden]="!editForm.controls.newspaper?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>

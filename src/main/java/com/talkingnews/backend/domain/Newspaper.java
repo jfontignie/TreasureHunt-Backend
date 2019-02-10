@@ -1,25 +1,23 @@
 package com.talkingnews.backend.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
- * A NewsPaper.
+ * A Newspaper.
  */
 @Entity
-@Table(name = "news_paper")
+@Table(name = "newspaper")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class NewsPaper implements Serializable {
+public class Newspaper implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -36,7 +34,7 @@ public class NewsPaper implements Serializable {
     @Column(name = "pattern", nullable = false)
     private String pattern;
 
-    @OneToMany(mappedBy = "newsPaper")
+    @OneToMany(mappedBy = "newspaper")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Feed> feeds = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -52,7 +50,7 @@ public class NewsPaper implements Serializable {
         return name;
     }
 
-    public NewsPaper name(String name) {
+    public Newspaper name(String name) {
         this.name = name;
         return this;
     }
@@ -65,7 +63,7 @@ public class NewsPaper implements Serializable {
         return pattern;
     }
 
-    public NewsPaper pattern(String pattern) {
+    public Newspaper pattern(String pattern) {
         this.pattern = pattern;
         return this;
     }
@@ -78,20 +76,20 @@ public class NewsPaper implements Serializable {
         return feeds;
     }
 
-    public NewsPaper feeds(Set<Feed> feeds) {
+    public Newspaper feeds(Set<Feed> feeds) {
         this.feeds = feeds;
         return this;
     }
 
-    public NewsPaper addFeed(Feed feed) {
+    public Newspaper addFeed(Feed feed) {
         this.feeds.add(feed);
-        feed.setNewsPaper(this);
+        feed.setNewspaper(this);
         return this;
     }
 
-    public NewsPaper removeFeed(Feed feed) {
+    public Newspaper removeFeed(Feed feed) {
         this.feeds.remove(feed);
-        feed.setNewsPaper(null);
+        feed.setNewspaper(null);
         return this;
     }
 
@@ -108,11 +106,11 @@ public class NewsPaper implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        NewsPaper newsPaper = (NewsPaper) o;
-        if (newsPaper.getId() == null || getId() == null) {
+        Newspaper newspaper = (Newspaper) o;
+        if (newspaper.getId() == null || getId() == null) {
             return false;
         }
-        return Objects.equals(getId(), newsPaper.getId());
+        return Objects.equals(getId(), newspaper.getId());
     }
 
     @Override
@@ -122,7 +120,7 @@ public class NewsPaper implements Serializable {
 
     @Override
     public String toString() {
-        return "NewsPaper{" +
+        return "Newspaper{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", pattern='" + getPattern() + "'" +

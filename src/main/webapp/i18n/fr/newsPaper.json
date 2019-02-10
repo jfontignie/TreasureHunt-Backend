@@ -1,19 +1,19 @@
 {
     "talkingNewsBackendApp": {
-        "newsPaper": {
+        "newspaper": {
             "home": {
-                "title": "NewsPapers",
-                "createLabel": "Créer un nouveau News Paper",
-                "createOrEditLabel": "Créer ou éditer un News Paper"
+                "title": "Newspapers",
+                "createLabel": "Créer un nouveau Newspaper",
+                "createOrEditLabel": "Créer ou éditer un Newspaper"
             },
-            "created": "Un nouveau News Paper a été créé avec l'identifiant {{ param }}",
-            "updated": "Le News Paper avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le News Paper avec l'identifiant {{ param }} a été supprimé",
+            "created": "Un nouveau Newspaper a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Newspaper avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Newspaper avec l'identifiant {{ param }} a été supprimé",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le News Paper {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer le Newspaper {{ id }} ?"
             },
             "detail": {
-                "title": "News Paper"
+                "title": "Newspaper"
             },
             "name": "Name",
             "pattern": "Pattern",

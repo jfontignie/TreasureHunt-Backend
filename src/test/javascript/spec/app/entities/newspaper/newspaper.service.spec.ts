@@ -4,24 +4,24 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
-import { NewsPaperService } from 'app/entities/news-paper/news-paper.service';
-import { INewsPaper, NewsPaper } from 'app/shared/model/news-paper.model';
+import { NewspaperService } from 'app/entities/newspaper/newspaper.service';
+import { INewspaper, Newspaper } from 'app/shared/model/newspaper.model';
 
 describe('Service Tests', () => {
-    describe('NewsPaper Service', () => {
+    describe('Newspaper Service', () => {
         let injector: TestBed;
-        let service: NewsPaperService;
+        let service: NewspaperService;
         let httpMock: HttpTestingController;
-        let elemDefault: INewsPaper;
+        let elemDefault: INewspaper;
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [HttpClientTestingModule]
             });
             injector = getTestBed();
-            service = injector.get(NewsPaperService);
+            service = injector.get(NewspaperService);
             httpMock = injector.get(HttpTestingController);
 
-            elemDefault = new NewsPaper(0, 'AAAAAAA', 'AAAAAAA');
+            elemDefault = new Newspaper(0, 'AAAAAAA', 'AAAAAAA');
         });
 
         describe('Service methods', async () => {
@@ -36,7 +36,7 @@ describe('Service Tests', () => {
                 req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should create a NewsPaper', async () => {
+            it('should create a Newspaper', async () => {
                 const returnedFromService = Object.assign(
                     {
                         id: 0
@@ -45,14 +45,14 @@ describe('Service Tests', () => {
                 );
                 const expected = Object.assign({}, returnedFromService);
                 service
-                    .create(new NewsPaper(null))
+                    .create(new Newspaper(null))
                     .pipe(take(1))
                     .subscribe(resp => expect(resp).toMatchObject({ body: expected }));
                 const req = httpMock.expectOne({ method: 'POST' });
                 req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should update a NewsPaper', async () => {
+            it('should update a Newspaper', async () => {
                 const returnedFromService = Object.assign(
                     {
                         name: 'BBBBBB',
@@ -70,7 +70,7 @@ describe('Service Tests', () => {
                 req.flush(JSON.stringify(returnedFromService));
             });
 
-            it('should return a list of NewsPaper', async () => {
+            it('should return a list of Newspaper', async () => {
                 const returnedFromService = Object.assign(
                     {
                         name: 'BBBBBB',
@@ -91,7 +91,7 @@ describe('Service Tests', () => {
                 httpMock.verify();
             });
 
-            it('should delete a NewsPaper', async () => {
+            it('should delete a Newspaper', async () => {
                 const rxPromise = service.delete(123).subscribe(resp => expect(resp.ok));
 
                 const req = httpMock.expectOne({ method: 'DELETE' });

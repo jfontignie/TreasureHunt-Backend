@@ -4,18 +4,18 @@ import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { INewsPaper } from 'app/shared/model/news-paper.model';
+import { INewspaper } from 'app/shared/model/newspaper.model';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { NewsPaperService } from './news-paper.service';
+import { NewspaperService } from './newspaper.service';
 
 @Component({
-    selector: 'jhi-news-paper',
-    templateUrl: './news-paper.component.html'
+    selector: 'jhi-newspaper',
+    templateUrl: './newspaper.component.html'
 })
-export class NewsPaperComponent implements OnInit, OnDestroy {
-    newsPapers: INewsPaper[];
+export class NewspaperComponent implements OnInit, OnDestroy {
+    newspapers: INewspaper[];
     currentAccount: any;
     eventSubscriber: Subscription;
     itemsPerPage: number;
@@ -26,13 +26,13 @@ export class NewsPaperComponent implements OnInit, OnDestroy {
     totalItems: number;
 
     constructor(
-        protected newsPaperService: NewsPaperService,
+        protected newspaperService: NewspaperService,
         protected jhiAlertService: JhiAlertService,
         protected eventManager: JhiEventManager,
         protected parseLinks: JhiParseLinks,
         protected accountService: AccountService
     ) {
-        this.newsPapers = [];
+        this.newspapers = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.page = 0;
         this.links = {
@@ -43,21 +43,21 @@ export class NewsPaperComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.newsPaperService
+        this.newspaperService
             .query({
                 page: this.page,
                 size: this.itemsPerPage,
                 sort: this.sort()
             })
             .subscribe(
-                (res: HttpResponse<INewsPaper[]>) => this.paginateNewsPapers(res.body, res.headers),
+                (res: HttpResponse<INewspaper[]>) => this.paginateNewspapers(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
     }
 
     reset() {
         this.page = 0;
-        this.newsPapers = [];
+        this.newspapers = [];
         this.loadAll();
     }
 
@@ -71,19 +71,19 @@ export class NewsPaperComponent implements OnInit, OnDestroy {
         this.accountService.identity().then(account => {
             this.currentAccount = account;
         });
-        this.registerChangeInNewsPapers();
+        this.registerChangeInNewspapers();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId(index: number, item: INewsPaper) {
+    trackId(index: number, item: INewspaper) {
         return item.id;
     }
 
-    registerChangeInNewsPapers() {
-        this.eventSubscriber = this.eventManager.subscribe('newsPaperListModification', response => this.reset());
+    registerChangeInNewspapers() {
+        this.eventSubscriber = this.eventManager.subscribe('newspaperListModification', response => this.reset());
     }
 
     sort() {
@@ -94,11 +94,11 @@ export class NewsPaperComponent implements OnInit, OnDestroy {
         return result;
     }
 
-    protected paginateNewsPapers(data: INewsPaper[], headers: HttpHeaders) {
+    protected paginateNewspapers(data: INewspaper[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         for (let i = 0; i < data.length; i++) {
-            this.newsPapers.push(data[i]);
+            this.newspapers.push(data[i]);
         }
     }
 

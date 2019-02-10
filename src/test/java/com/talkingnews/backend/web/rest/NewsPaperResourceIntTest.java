@@ -2,9 +2,9 @@ package com.talkingnews.backend.web.rest;
 
 import com.talkingnews.backend.TalkingNewsBackendApp;
 
-import com.talkingnews.backend.domain.NewsPaper;
-import com.talkingnews.backend.repository.NewsPaperRepository;
-import com.talkingnews.backend.service.NewsPaperService;
+import com.talkingnews.backend.domain.Newspaper;
+import com.talkingnews.backend.repository.NewspaperRepository;
+import com.talkingnews.backend.service.NewspaperService;
 import com.talkingnews.backend.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -33,13 +33,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
- * Test class for the NewsPaperResource REST controller.
+ * Test class for the NewspaperResource REST controller.
  *
- * @see NewsPaperResource
+ * @see NewspaperResource
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = TalkingNewsBackendApp.class)
-public class NewsPaperResourceIntTest {
+public class NewspaperResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -48,10 +48,10 @@ public class NewsPaperResourceIntTest {
     private static final String UPDATED_PATTERN = "BBBBBBBBBB";
 
     @Autowired
-    private NewsPaperRepository newsPaperRepository;
+    private NewspaperRepository newspaperRepository;
 
     @Autowired
-    private NewsPaperService newsPaperService;
+    private NewspaperService newspaperService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -68,15 +68,15 @@ public class NewsPaperResourceIntTest {
     @Autowired
     private Validator validator;
 
-    private MockMvc restNewsPaperMockMvc;
+    private MockMvc restNewspaperMockMvc;
 
-    private NewsPaper newsPaper;
+    private Newspaper newspaper;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final NewsPaperResource newsPaperResource = new NewsPaperResource(newsPaperService);
-        this.restNewsPaperMockMvc = MockMvcBuilders.standaloneSetup(newsPaperResource)
+        final NewspaperResource newspaperResource = new NewspaperResource(newspaperService);
+        this.restNewspaperMockMvc = MockMvcBuilders.standaloneSetup(newspaperResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
@@ -90,207 +90,207 @@ public class NewsPaperResourceIntTest {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
-    public static NewsPaper createEntity(EntityManager em) {
-        NewsPaper newsPaper = new NewsPaper()
+    public static Newspaper createEntity(EntityManager em) {
+        Newspaper newspaper = new Newspaper()
             .name(DEFAULT_NAME)
             .pattern(DEFAULT_PATTERN);
-        return newsPaper;
+        return newspaper;
     }
 
     @Before
     public void initTest() {
-        newsPaper = createEntity(em);
+        newspaper = createEntity(em);
     }
 
     @Test
     @Transactional
-    public void createNewsPaper() throws Exception {
-        int databaseSizeBeforeCreate = newsPaperRepository.findAll().size();
+    public void createNewspaper() throws Exception {
+        int databaseSizeBeforeCreate = newspaperRepository.findAll().size();
 
-        // Create the NewsPaper
-        restNewsPaperMockMvc.perform(post("/api/news-papers")
+        // Create the Newspaper
+        restNewspaperMockMvc.perform(post("/api/newspapers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(newsPaper)))
+            .content(TestUtil.convertObjectToJsonBytes(newspaper)))
             .andExpect(status().isCreated());
 
-        // Validate the NewsPaper in the database
-        List<NewsPaper> newsPaperList = newsPaperRepository.findAll();
-        assertThat(newsPaperList).hasSize(databaseSizeBeforeCreate + 1);
-        NewsPaper testNewsPaper = newsPaperList.get(newsPaperList.size() - 1);
-        assertThat(testNewsPaper.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testNewsPaper.getPattern()).isEqualTo(DEFAULT_PATTERN);
+        // Validate the Newspaper in the database
+        List<Newspaper> newspaperList = newspaperRepository.findAll();
+        assertThat(newspaperList).hasSize(databaseSizeBeforeCreate + 1);
+        Newspaper testNewspaper = newspaperList.get(newspaperList.size() - 1);
+        assertThat(testNewspaper.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testNewspaper.getPattern()).isEqualTo(DEFAULT_PATTERN);
     }
 
     @Test
     @Transactional
-    public void createNewsPaperWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = newsPaperRepository.findAll().size();
+    public void createNewspaperWithExistingId() throws Exception {
+        int databaseSizeBeforeCreate = newspaperRepository.findAll().size();
 
-        // Create the NewsPaper with an existing ID
-        newsPaper.setId(1L);
+        // Create the Newspaper with an existing ID
+        newspaper.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restNewsPaperMockMvc.perform(post("/api/news-papers")
+        restNewspaperMockMvc.perform(post("/api/newspapers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(newsPaper)))
+            .content(TestUtil.convertObjectToJsonBytes(newspaper)))
             .andExpect(status().isBadRequest());
 
-        // Validate the NewsPaper in the database
-        List<NewsPaper> newsPaperList = newsPaperRepository.findAll();
-        assertThat(newsPaperList).hasSize(databaseSizeBeforeCreate);
+        // Validate the Newspaper in the database
+        List<Newspaper> newspaperList = newspaperRepository.findAll();
+        assertThat(newspaperList).hasSize(databaseSizeBeforeCreate);
     }
 
     @Test
     @Transactional
     public void checkNameIsRequired() throws Exception {
-        int databaseSizeBeforeTest = newsPaperRepository.findAll().size();
+        int databaseSizeBeforeTest = newspaperRepository.findAll().size();
         // set the field null
-        newsPaper.setName(null);
+        newspaper.setName(null);
 
-        // Create the NewsPaper, which fails.
+        // Create the Newspaper, which fails.
 
-        restNewsPaperMockMvc.perform(post("/api/news-papers")
+        restNewspaperMockMvc.perform(post("/api/newspapers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(newsPaper)))
+            .content(TestUtil.convertObjectToJsonBytes(newspaper)))
             .andExpect(status().isBadRequest());
 
-        List<NewsPaper> newsPaperList = newsPaperRepository.findAll();
-        assertThat(newsPaperList).hasSize(databaseSizeBeforeTest);
+        List<Newspaper> newspaperList = newspaperRepository.findAll();
+        assertThat(newspaperList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
     public void checkPatternIsRequired() throws Exception {
-        int databaseSizeBeforeTest = newsPaperRepository.findAll().size();
+        int databaseSizeBeforeTest = newspaperRepository.findAll().size();
         // set the field null
-        newsPaper.setPattern(null);
+        newspaper.setPattern(null);
 
-        // Create the NewsPaper, which fails.
+        // Create the Newspaper, which fails.
 
-        restNewsPaperMockMvc.perform(post("/api/news-papers")
+        restNewspaperMockMvc.perform(post("/api/newspapers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(newsPaper)))
+            .content(TestUtil.convertObjectToJsonBytes(newspaper)))
             .andExpect(status().isBadRequest());
 
-        List<NewsPaper> newsPaperList = newsPaperRepository.findAll();
-        assertThat(newsPaperList).hasSize(databaseSizeBeforeTest);
+        List<Newspaper> newspaperList = newspaperRepository.findAll();
+        assertThat(newspaperList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
     @Transactional
-    public void getAllNewsPapers() throws Exception {
+    public void getAllNewspapers() throws Exception {
         // Initialize the database
-        newsPaperRepository.saveAndFlush(newsPaper);
+        newspaperRepository.saveAndFlush(newspaper);
 
-        // Get all the newsPaperList
-        restNewsPaperMockMvc.perform(get("/api/news-papers?sort=id,desc"))
+        // Get all the newspaperList
+        restNewspaperMockMvc.perform(get("/api/newspapers?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(newsPaper.getId().intValue())))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(newspaper.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].pattern").value(hasItem(DEFAULT_PATTERN.toString())));
     }
     
     @Test
     @Transactional
-    public void getNewsPaper() throws Exception {
+    public void getNewspaper() throws Exception {
         // Initialize the database
-        newsPaperRepository.saveAndFlush(newsPaper);
+        newspaperRepository.saveAndFlush(newspaper);
 
-        // Get the newsPaper
-        restNewsPaperMockMvc.perform(get("/api/news-papers/{id}", newsPaper.getId()))
+        // Get the newspaper
+        restNewspaperMockMvc.perform(get("/api/newspapers/{id}", newspaper.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-            .andExpect(jsonPath("$.id").value(newsPaper.getId().intValue()))
+            .andExpect(jsonPath("$.id").value(newspaper.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.pattern").value(DEFAULT_PATTERN.toString()));
     }
 
     @Test
     @Transactional
-    public void getNonExistingNewsPaper() throws Exception {
-        // Get the newsPaper
-        restNewsPaperMockMvc.perform(get("/api/news-papers/{id}", Long.MAX_VALUE))
+    public void getNonExistingNewspaper() throws Exception {
+        // Get the newspaper
+        restNewspaperMockMvc.perform(get("/api/newspapers/{id}", Long.MAX_VALUE))
             .andExpect(status().isNotFound());
     }
 
     @Test
     @Transactional
-    public void updateNewsPaper() throws Exception {
+    public void updateNewspaper() throws Exception {
         // Initialize the database
-        newsPaperService.save(newsPaper);
+        newspaperService.save(newspaper);
 
-        int databaseSizeBeforeUpdate = newsPaperRepository.findAll().size();
+        int databaseSizeBeforeUpdate = newspaperRepository.findAll().size();
 
-        // Update the newsPaper
-        NewsPaper updatedNewsPaper = newsPaperRepository.findById(newsPaper.getId()).get();
-        // Disconnect from session so that the updates on updatedNewsPaper are not directly saved in db
-        em.detach(updatedNewsPaper);
-        updatedNewsPaper
+        // Update the newspaper
+        Newspaper updatedNewspaper = newspaperRepository.findById(newspaper.getId()).get();
+        // Disconnect from session so that the updates on updatedNewspaper are not directly saved in db
+        em.detach(updatedNewspaper);
+        updatedNewspaper
             .name(UPDATED_NAME)
             .pattern(UPDATED_PATTERN);
 
-        restNewsPaperMockMvc.perform(put("/api/news-papers")
+        restNewspaperMockMvc.perform(put("/api/newspapers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedNewsPaper)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedNewspaper)))
             .andExpect(status().isOk());
 
-        // Validate the NewsPaper in the database
-        List<NewsPaper> newsPaperList = newsPaperRepository.findAll();
-        assertThat(newsPaperList).hasSize(databaseSizeBeforeUpdate);
-        NewsPaper testNewsPaper = newsPaperList.get(newsPaperList.size() - 1);
-        assertThat(testNewsPaper.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testNewsPaper.getPattern()).isEqualTo(UPDATED_PATTERN);
+        // Validate the Newspaper in the database
+        List<Newspaper> newspaperList = newspaperRepository.findAll();
+        assertThat(newspaperList).hasSize(databaseSizeBeforeUpdate);
+        Newspaper testNewspaper = newspaperList.get(newspaperList.size() - 1);
+        assertThat(testNewspaper.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testNewspaper.getPattern()).isEqualTo(UPDATED_PATTERN);
     }
 
     @Test
     @Transactional
-    public void updateNonExistingNewsPaper() throws Exception {
-        int databaseSizeBeforeUpdate = newsPaperRepository.findAll().size();
+    public void updateNonExistingNewspaper() throws Exception {
+        int databaseSizeBeforeUpdate = newspaperRepository.findAll().size();
 
-        // Create the NewsPaper
+        // Create the Newspaper
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restNewsPaperMockMvc.perform(put("/api/news-papers")
+        restNewspaperMockMvc.perform(put("/api/newspapers")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(newsPaper)))
+            .content(TestUtil.convertObjectToJsonBytes(newspaper)))
             .andExpect(status().isBadRequest());
 
-        // Validate the NewsPaper in the database
-        List<NewsPaper> newsPaperList = newsPaperRepository.findAll();
-        assertThat(newsPaperList).hasSize(databaseSizeBeforeUpdate);
+        // Validate the Newspaper in the database
+        List<Newspaper> newspaperList = newspaperRepository.findAll();
+        assertThat(newspaperList).hasSize(databaseSizeBeforeUpdate);
     }
 
     @Test
     @Transactional
-    public void deleteNewsPaper() throws Exception {
+    public void deleteNewspaper() throws Exception {
         // Initialize the database
-        newsPaperService.save(newsPaper);
+        newspaperService.save(newspaper);
 
-        int databaseSizeBeforeDelete = newsPaperRepository.findAll().size();
+        int databaseSizeBeforeDelete = newspaperRepository.findAll().size();
 
-        // Delete the newsPaper
-        restNewsPaperMockMvc.perform(delete("/api/news-papers/{id}", newsPaper.getId())
+        // Delete the newspaper
+        restNewspaperMockMvc.perform(delete("/api/newspapers/{id}", newspaper.getId())
             .accept(TestUtil.APPLICATION_JSON_UTF8))
             .andExpect(status().isOk());
 
         // Validate the database is empty
-        List<NewsPaper> newsPaperList = newsPaperRepository.findAll();
-        assertThat(newsPaperList).hasSize(databaseSizeBeforeDelete - 1);
+        List<Newspaper> newspaperList = newspaperRepository.findAll();
+        assertThat(newspaperList).hasSize(databaseSizeBeforeDelete - 1);
     }
 
     @Test
     @Transactional
     public void equalsVerifier() throws Exception {
-        TestUtil.equalsVerifier(NewsPaper.class);
-        NewsPaper newsPaper1 = new NewsPaper();
-        newsPaper1.setId(1L);
-        NewsPaper newsPaper2 = new NewsPaper();
-        newsPaper2.setId(newsPaper1.getId());
-        assertThat(newsPaper1).isEqualTo(newsPaper2);
-        newsPaper2.setId(2L);
-        assertThat(newsPaper1).isNotEqualTo(newsPaper2);
-        newsPaper1.setId(null);
-        assertThat(newsPaper1).isNotEqualTo(newsPaper2);
+        TestUtil.equalsVerifier(Newspaper.class);
+        Newspaper newspaper1 = new Newspaper();
+        newspaper1.setId(1L);
+        Newspaper newspaper2 = new Newspaper();
+        newspaper2.setId(newspaper1.getId());
+        assertThat(newspaper1).isEqualTo(newspaper2);
+        newspaper2.setId(2L);
+        assertThat(newspaper1).isNotEqualTo(newspaper2);
+        newspaper1.setId(null);
+        assertThat(newspaper1).isNotEqualTo(newspaper2);
     }
 }

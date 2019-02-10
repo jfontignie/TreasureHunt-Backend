@@ -1,4 +1,4 @@
-entity NewsPaper {
+entity Newspaper {
 	name String required,
 	pattern String required
 }
@@ -9,9 +9,9 @@ entity Feed {
 }
 
 relationship ManyToOne {
-    Feed{NewsPaper(name) required} to NewsPaper{Feed(category)}
+    Feed{Newspaper(name) required} to Newspaper{Feed(category)}
 }
 
-service NewsPaper with serviceImpl
+service Newspaper with serviceImpl
 
-paginate NewsPaper with infinite-scroll
+paginate Newspaper with infinite-scroll

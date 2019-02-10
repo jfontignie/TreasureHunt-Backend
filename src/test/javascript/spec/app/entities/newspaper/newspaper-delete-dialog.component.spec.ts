@@ -5,27 +5,27 @@ import { Observable, of } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { TalkingNewsBackendTestModule } from '../../../test.module';
-import { NewsPaperDeleteDialogComponent } from 'app/entities/news-paper/news-paper-delete-dialog.component';
-import { NewsPaperService } from 'app/entities/news-paper/news-paper.service';
+import { NewspaperDeleteDialogComponent } from 'app/entities/newspaper/newspaper-delete-dialog.component';
+import { NewspaperService } from 'app/entities/newspaper/newspaper.service';
 
 describe('Component Tests', () => {
-    describe('NewsPaper Management Delete Component', () => {
-        let comp: NewsPaperDeleteDialogComponent;
-        let fixture: ComponentFixture<NewsPaperDeleteDialogComponent>;
-        let service: NewsPaperService;
+    describe('Newspaper Management Delete Component', () => {
+        let comp: NewspaperDeleteDialogComponent;
+        let fixture: ComponentFixture<NewspaperDeleteDialogComponent>;
+        let service: NewspaperService;
         let mockEventManager: any;
         let mockActiveModal: any;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [TalkingNewsBackendTestModule],
-                declarations: [NewsPaperDeleteDialogComponent]
+                declarations: [NewspaperDeleteDialogComponent]
             })
-                .overrideTemplate(NewsPaperDeleteDialogComponent, '')
+                .overrideTemplate(NewspaperDeleteDialogComponent, '')
                 .compileComponents();
-            fixture = TestBed.createComponent(NewsPaperDeleteDialogComponent);
+            fixture = TestBed.createComponent(NewspaperDeleteDialogComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(NewsPaperService);
+            service = fixture.debugElement.injector.get(NewspaperService);
             mockEventManager = fixture.debugElement.injector.get(JhiEventManager);
             mockActiveModal = fixture.debugElement.injector.get(NgbActiveModal);
         });

@@ -20,8 +20,8 @@
         {
             "relationshipType": "many-to-one",
             "relationshipValidateRules": "required",
-            "relationshipName": "newsPaper",
-            "otherEntityName": "newsPaper",
+            "relationshipName": "newspaper",
+            "otherEntityName": "newspaper",
             "otherEntityField": "name",
             "otherEntityRelationshipName": "feed(category)"
         }

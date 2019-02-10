@@ -6,8 +6,8 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IFeed } from 'app/shared/model/feed.model';
 import { FeedService } from './feed.service';
-import { INewsPaper } from 'app/shared/model/news-paper.model';
-import { NewsPaperService } from 'app/entities/news-paper';
+import { INewspaper } from 'app/shared/model/newspaper.model';
+import { NewspaperService } from 'app/entities/newspaper';
 
 @Component({
     selector: 'jhi-feed-update',
@@ -17,12 +17,12 @@ export class FeedUpdateComponent implements OnInit {
     feed: IFeed;
     isSaving: boolean;
 
-    newspapers: INewsPaper[];
+    newspapers: INewspaper[];
 
     constructor(
         protected jhiAlertService: JhiAlertService,
         protected feedService: FeedService,
-        protected newsPaperService: NewsPaperService,
+        protected newspaperService: NewspaperService,
         protected activatedRoute: ActivatedRoute
     ) {}
 
@@ -31,13 +31,13 @@ export class FeedUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ feed }) => {
             this.feed = feed;
         });
-        this.newsPaperService
+        this.newspaperService
             .query()
             .pipe(
-                filter((mayBeOk: HttpResponse<INewsPaper[]>) => mayBeOk.ok),
-                map((response: HttpResponse<INewsPaper[]>) => response.body)
+                filter((mayBeOk: HttpResponse<INewspaper[]>) => mayBeOk.ok),
+                map((response: HttpResponse<INewspaper[]>) => response.body)
             )
-            .subscribe((res: INewsPaper[]) => (this.newspapers = res), (res: HttpErrorResponse) => this.onError(res.message));
+            .subscribe((res: INewspaper[]) => (this.newspapers = res), (res: HttpErrorResponse) => this.onError(res.message));
     }
 
     previousState() {
@@ -70,7 +70,7 @@ export class FeedUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackNewsPaperById(index: number, item: INewsPaper) {
+    trackNewspaperById(index: number, item: INewspaper) {
         return item.id;
     }
 }

@@ -5,8 +5,12 @@ import { RouterModule } from '@angular/router';
     imports: [
         RouterModule.forChild([
             {
-                path: 'news-paper',
-                loadChildren: './news-paper/news-paper.module#TalkingNewsBackendNewsPaperModule'
+                path: 'feed',
+                loadChildren: './feed/feed.module#TalkingNewsBackendFeedModule'
+            },
+            {
+                path: 'newspaper',
+                loadChildren: './newspaper/newspaper.module#TalkingNewsBackendNewspaperModule'
             },
             {
                 path: 'feed',

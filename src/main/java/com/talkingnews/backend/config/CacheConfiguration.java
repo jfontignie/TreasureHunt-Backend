@@ -39,9 +39,9 @@ public class CacheConfiguration {
             cm.createCache(com.talkingnews.backend.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.talkingnews.backend.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.talkingnews.backend.domain.User.class.getName() + ".authorities", jcacheConfiguration);
-            cm.createCache(com.talkingnews.backend.domain.NewsPaper.class.getName(), jcacheConfiguration);
-            cm.createCache(com.talkingnews.backend.domain.NewsPaper.class.getName() + ".feeds", jcacheConfiguration);
             cm.createCache(com.talkingnews.backend.domain.Feed.class.getName(), jcacheConfiguration);
+            cm.createCache(com.talkingnews.backend.domain.Newspaper.class.getName(), jcacheConfiguration);
+            cm.createCache(com.talkingnews.backend.domain.Newspaper.class.getName() + ".feeds", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

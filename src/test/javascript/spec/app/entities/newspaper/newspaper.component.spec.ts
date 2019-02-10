@@ -5,20 +5,20 @@ import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Data } from '@angular/router';
 
 import { TalkingNewsBackendTestModule } from '../../../test.module';
-import { NewsPaperComponent } from 'app/entities/news-paper/news-paper.component';
-import { NewsPaperService } from 'app/entities/news-paper/news-paper.service';
-import { NewsPaper } from 'app/shared/model/news-paper.model';
+import { NewspaperComponent } from 'app/entities/newspaper/newspaper.component';
+import { NewspaperService } from 'app/entities/newspaper/newspaper.service';
+import { Newspaper } from 'app/shared/model/newspaper.model';
 
 describe('Component Tests', () => {
-    describe('NewsPaper Management Component', () => {
-        let comp: NewsPaperComponent;
-        let fixture: ComponentFixture<NewsPaperComponent>;
-        let service: NewsPaperService;
+    describe('Newspaper Management Component', () => {
+        let comp: NewspaperComponent;
+        let fixture: ComponentFixture<NewspaperComponent>;
+        let service: NewspaperService;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [TalkingNewsBackendTestModule],
-                declarations: [NewsPaperComponent],
+                declarations: [NewspaperComponent],
                 providers: [
                     {
                         provide: ActivatedRoute,
@@ -37,12 +37,12 @@ describe('Component Tests', () => {
                     }
                 ]
             })
-                .overrideTemplate(NewsPaperComponent, '')
+                .overrideTemplate(NewspaperComponent, '')
                 .compileComponents();
 
-            fixture = TestBed.createComponent(NewsPaperComponent);
+            fixture = TestBed.createComponent(NewspaperComponent);
             comp = fixture.componentInstance;
-            service = fixture.debugElement.injector.get(NewsPaperService);
+            service = fixture.debugElement.injector.get(NewspaperService);
         });
 
         it('Should call load all on init', () => {
@@ -51,7 +51,7 @@ describe('Component Tests', () => {
             spyOn(service, 'query').and.returnValue(
                 of(
                     new HttpResponse({
-                        body: [new NewsPaper(123)],
+                        body: [new Newspaper(123)],
                         headers
                     })
                 )
@@ -62,7 +62,7 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.query).toHaveBeenCalled();
-            expect(comp.newsPapers[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+            expect(comp.newspapers[0]).toEqual(jasmine.objectContaining({ id: 123 }));
         });
 
         it('should load a page', () => {
@@ -71,7 +71,7 @@ describe('Component Tests', () => {
             spyOn(service, 'query').and.returnValue(
                 of(
                     new HttpResponse({
-                        body: [new NewsPaper(123)],
+                        body: [new Newspaper(123)],
                         headers
                     })
                 )
@@ -82,7 +82,7 @@ describe('Component Tests', () => {
 
             // THEN
             expect(service.query).toHaveBeenCalled();
-            expect(comp.newsPapers[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+            expect(comp.newspapers[0]).toEqual(jasmine.objectContaining({ id: 123 }));
         });
 
         it('should re-initialize the page', () => {
@@ -91,7 +91,7 @@ describe('Component Tests', () => {
             spyOn(service, 'query').and.returnValue(
                 of(
                     new HttpResponse({
-                        body: [new NewsPaper(123)],
+                        body: [new Newspaper(123)],
                         headers
                     })
                 )
@@ -104,7 +104,7 @@ describe('Component Tests', () => {
             // THEN
             expect(comp.page).toEqual(0);
             expect(service.query).toHaveBeenCalledTimes(2);
-            expect(comp.newsPapers[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+            expect(comp.newspapers[0]).toEqual(jasmine.objectContaining({ id: 123 }));
         });
         it('should calculate the sort attribute for an id', () => {
             // WHEN

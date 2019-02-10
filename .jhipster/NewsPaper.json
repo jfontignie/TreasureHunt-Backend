@@ -1,5 +1,5 @@
 {
-    "name": "NewsPaper",
+    "name": "Newspaper",
     "fields": [
         {
             "fieldName": "name",
@@ -21,11 +21,11 @@
             "relationshipType": "one-to-many",
             "relationshipName": "feed",
             "otherEntityName": "feed",
-            "otherEntityRelationshipName": "newsPaper"
+            "otherEntityRelationshipName": "newspaper"
         }
     ],
     "changelogDate": "20190203200111",
-    "entityTableName": "news_paper",
+    "entityTableName": "newspaper",
     "dto": "no",
     "pagination": "infinite-scroll",
     "service": "serviceImpl",

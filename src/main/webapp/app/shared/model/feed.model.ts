@@ -1,12 +1,12 @@
-import { INewsPaper } from 'app/shared/model/news-paper.model';
+import { INewspaper } from 'app/shared/model/newspaper.model';
 
 export interface IFeed {
     id?: number;
     category?: string;
     feedUrl?: string;
-    newsPaper?: INewsPaper;
+    newspaper?: INewspaper;
 }
 
 export class Feed implements IFeed {
-    constructor(public id?: number, public category?: string, public feedUrl?: string, public newsPaper?: INewsPaper) {}
+    constructor(public id?: number, public category?: string, public feedUrl?: string, public newspaper?: INewspaper) {}
 }

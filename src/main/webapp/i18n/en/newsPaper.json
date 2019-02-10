@@ -1,19 +1,19 @@
 {
     "talkingNewsBackendApp": {
-        "newsPaper": {
+        "newspaper": {
             "home": {
-                "title": "News Papers",
-                "createLabel": "Create a new News Paper",
-                "createOrEditLabel": "Create or edit a News Paper"
+                "title": "Newspapers",
+                "createLabel": "Create a new Newspaper",
+                "createOrEditLabel": "Create or edit a Newspaper"
             },
-            "created": "A new News Paper is created with identifier {{ param }}",
-            "updated": "A News Paper is updated with identifier {{ param }}",
-            "deleted": "A News Paper is deleted with identifier {{ param }}",
+            "created": "A new Newspaper is created with identifier {{ param }}",
+            "updated": "A Newspaper is updated with identifier {{ param }}",
+            "deleted": "A Newspaper is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete News Paper {{ id }}?"
+                "question": "Are you sure you want to delete Newspaper {{ id }}?"
             },
             "detail": {
-                "title": "News Paper"
+                "title": "Newspaper"
             },
             "name": "Name",
             "pattern": "Pattern",

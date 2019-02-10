@@ -4,24 +4,24 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
 import { TalkingNewsBackendTestModule } from '../../../test.module';
-import { NewsPaperDetailComponent } from 'app/entities/news-paper/news-paper-detail.component';
-import { NewsPaper } from 'app/shared/model/news-paper.model';
+import { NewspaperDetailComponent } from 'app/entities/newspaper/newspaper-detail.component';
+import { Newspaper } from 'app/shared/model/newspaper.model';
 
 describe('Component Tests', () => {
-    describe('NewsPaper Management Detail Component', () => {
-        let comp: NewsPaperDetailComponent;
-        let fixture: ComponentFixture<NewsPaperDetailComponent>;
-        const route = ({ data: of({ newsPaper: new NewsPaper(123) }) } as any) as ActivatedRoute;
+    describe('Newspaper Management Detail Component', () => {
+        let comp: NewspaperDetailComponent;
+        let fixture: ComponentFixture<NewspaperDetailComponent>;
+        const route = ({ data: of({ newspaper: new Newspaper(123) }) } as any) as ActivatedRoute;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [TalkingNewsBackendTestModule],
-                declarations: [NewsPaperDetailComponent],
+                declarations: [NewspaperDetailComponent],
                 providers: [{ provide: ActivatedRoute, useValue: route }]
             })
-                .overrideTemplate(NewsPaperDetailComponent, '')
+                .overrideTemplate(NewspaperDetailComponent, '')
                 .compileComponents();
-            fixture = TestBed.createComponent(NewsPaperDetailComponent);
+            fixture = TestBed.createComponent(NewspaperDetailComponent);
             comp = fixture.componentInstance;
         });
 
@@ -33,7 +33,7 @@ describe('Component Tests', () => {
                 comp.ngOnInit();
 
                 // THEN
-                expect(comp.newsPaper).toEqual(jasmine.objectContaining({ id: 123 }));
+                expect(comp.newspaper).toEqual(jasmine.objectContaining({ id: 123 }));
             });
         });
     });
